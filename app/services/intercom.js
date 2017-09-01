@@ -2,6 +2,9 @@ import Ember from 'ember';
 import config from '../config/environment';
 
 export default Ember.Service.extend({
+
+  disabled: false,
+
   boot(params) {
     params['app_id'] = config['ember-cli-intercom'].appId;
 
@@ -9,7 +12,7 @@ export default Ember.Service.extend({
   },
 
   intercomApi(...args) {
-    if (typeof Intercom !== 'undefined') {
+    if (typeof Intercom !== 'undefined' && !this.get('disabled')) {
       Intercom(...args);
     }
   },
